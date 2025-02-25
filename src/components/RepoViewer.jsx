@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { FaFolder, FaFile, FaChevronRight } from "react-icons/fa"
 
@@ -16,6 +16,19 @@ const RepoViewer = ({ octokit }) => {
   const [loading, setLoading] = useState(false)
   const [lastApiCall, setLastApiCall] = useState(null)
   const [lastApiResponse, setLastApiResponse] = useState(null)
+
+  // Fetch example content on mount
+  useEffect(() => {
+    const loadInitialContent = async () => {
+      const owner = "imhangli"
+      const repo = "fetchrepo"
+      const path = "README.md"
+
+      setCurrentPath([owner, repo])
+      await fetchFileContent(owner, repo, path)
+    }
+    loadInitialContent()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Format file size for display
   const formatSize = bytes => {
@@ -228,6 +241,7 @@ const RepoViewer = ({ octokit }) => {
       </div>
 
       <div className="viewer-right">
+        <h2>Repository Contents</h2>
         {currentPath.length > 0 && renderBreadcrumb()}
 
         {contents && !fileContent && (
@@ -257,30 +271,6 @@ const RepoViewer = ({ octokit }) => {
             <pre className="file-content">{fileContent.content}</pre>
           </div>
         )}
-      </div>
-
-      {/* Token Setup Guide */}
-      <div className="token-guide">
-        <h2>Setting up GitHub Personal Access Token</h2>
-        <ol>
-          <li>
-            Go to GitHub Settings → Developer settings → Personal access tokens
-            → Tokens (classic)
-          </li>
-          <li>Click "Generate new token" → "Generate new token (classic)"</li>
-          <li>Give your token a descriptive name</li>
-          <li>
-            Select the following scopes:
-            <ul>
-              <li>✓ repo (Full control of private repositories)</li>
-              <li>
-                ✓ read:packages (Optional, for accessing package contents)
-              </li>
-            </ul>
-          </li>
-          <li>Click "Generate token" and copy your token immediately</li>
-          <li>Add the token to the token input field above</li>
-        </ol>
       </div>
     </div>
   )

@@ -22,7 +22,16 @@ const TokenInput = ({ token, onTokenUpdate }) => {
           Add GitHub Token (for private repos)
         </button>
         <small>
-          Note: You can still access public repositories without a token
+          Note: You can access public repositories without a token. For private
+          repositories,{" "}
+          <a
+            href="https://github.com/settings/personal-access-tokens"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            generate a token
+          </a>
+          .
         </small>
       </div>
     )
@@ -49,6 +58,16 @@ const TokenInput = ({ token, onTokenUpdate }) => {
       <button type="button" onClick={() => setIsEditing(false)}>
         Cancel
       </button>
+      <small>
+        <a
+          href="https://github.com/settings/personal-access-tokens"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Generate a new token
+        </a>{" "}
+        with Contents read permission.
+      </small>
     </form>
   )
 }

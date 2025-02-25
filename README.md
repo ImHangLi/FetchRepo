@@ -1,70 +1,103 @@
-# GitHub Repository Content Viewer (React)
+# FetchRepo
 
-A modern React application demonstrating how to fetch and display GitHub repository contents using the GitHub REST API. This application supports both public and private repositories.
+A minimal web application to fetch and view GitHub repository contents using the [GitHub Contents API](https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28).
 
 ## Features
 
-- View public repository contents without authentication
-- Access private repositories using a GitHub Personal Access Token
-- Navigate through repository directories
-- View file contents
-- Modern React components with hooks
-- Clean, responsive UI
+- View public and private GitHub repository contents
+- Navigate through directories with breadcrumb navigation
+- Real-time API request/response visualization
+- Modern, minimal user interface
 
-## Setup and Installation
+## Setup
 
-1. Clone this repository
+1. Clone the repository
+   ```bash
+   git clone git@github.com:ImHangLi/FetchRepo.git
+   ```
 2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-npm install
+## GitHub Token Setup
+
+To access private repositories, you need a GitHub Personal Access Token (fine-grained). You can create one at [GitHub Token Settings](https://github.com/settings/personal-access-tokens):
+
+1. Go to [GitHub Token Settings](https://github.com/settings/personal-access-tokens) → Fine-grained tokens
+2. Click "Generate new token"
+3. Configure the token:
+   - Token name: Give it a descriptive name
+   - Expiration: Choose as needed
+   - Repository access: Select specific repositories you want to access
+   - Permissions: Under "Repository permissions", select:
+     - Contents: Read access (Required for viewing repository contents)
+4. Click "Generate token" and copy it
+5. Paste the token in the application's token input field when needed
+
+## How It Works
+
+Here's a minimal example of how to fetch repository contents using the [GitHub Contents API](https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28):
+
+```javascript
+// 1. Initialize Octokit with your token
+import { Octokit } from "@octokit/rest"
+const octokit = new Octokit({ auth: token }) // token from user input
+
+// 2. Fetch repository contents
+async function fetchContents(owner, repo, path = "") {
+  try {
+    const response = await octokit.repos.getContent({
+      owner,
+      repo,
+      path,
+    })
+
+    // Response will be either a file or an array of files/directories
+    const contents = Array.isArray(response.data)
+      ? response.data // Directory contents
+      : [response.data] // Single file
+
+    return contents
+  } catch (error) {
+    console.error("Error fetching contents:", error)
+    throw error
+  }
+}
+
+// 3. Fetch and decode file content
+async function fetchFileContent(owner, repo, path) {
+  try {
+    const response = await octokit.repos.getContent({
+      owner,
+      repo,
+      path,
+    })
+
+    // GitHub API returns content in base64
+    const content = atob(response.data.content)
+    return content
+  } catch (error) {
+    console.error("Error fetching file:", error)
+    throw error
+  }
+}
+
+// Example usage:
+// List repository contents
+const contents = await fetchContents("owner", "repo")
+
+// Get file content
+const fileContent = await fetchFileContent("owner", "repo", "path/to/file.txt")
 ```
 
-3. Create a `.env` file in the root directory and add your GitHub token (optional, for private repos):
+The GitHub API endpoints used:
 
-```bash
-VITE_GITHUB_TOKEN=your_personal_access_token
-```
-
-## Usage
-
-1. Start the development server:
-
-```bash
-npm run dev
-```
-
-2. Open your browser and navigate to `http://localhost:5173`
-3. Enter a repository in the format "owner/repository"
-4. For private repositories, ensure you've added your GitHub token in the `.env` file
-
-## GitHub Token Setup (for private repositories)
-
-1. Go to GitHub Settings > Developer settings > Personal access tokens
-2. Generate a new token with the following scopes:
-   - `repo` (Full control of private repositories)
-   - `read:packages` (Optional, for accessing package contents)
-3. Copy the token and add it to your `.env` file
-
-## API Reference
-
-This project uses the GitHub REST API v2022-11-28. For more information, see:
-
-- [GitHub Contents API Documentation](https://docs.github.com/en/rest/repos/contents)
-
-## Technical Details
-
-- Built with React + Vite
-- Uses Octokit REST client for GitHub API
-- Modern ES6+ syntax
-- Environment variables for secure token management
-
-## Limitations
-
-- Rate limiting applies (60 requests/hour for unauthenticated requests, 5000 requests/hour with authentication)
-- File size limitations apply as per GitHub API
-- Binary files are not displayed (only text-based files)
-
-## License
-
-MIT License - Feel free to use and modify as needed.
+- [`GET /repos/{owner}/{repo}/contents/{path}`](https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-repository-content): Fetch repository contents or file content
+- Response includes:
+  - For directories: Array of file/directory objects
+  - For files: Single file object with base64-encoded content

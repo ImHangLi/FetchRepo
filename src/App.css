@@ -8,6 +8,9 @@
   --error-color: #ff0000;
   --success-color: #008000;
   --input-background: #f8f8f8;
+  --text-size-small: 0.8125rem;
+  --text-size-normal: 0.875rem;
+  --text-size-title: 1.25rem;
 }
 
 * {
@@ -21,9 +24,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
-  display: flex;
-  justify-content: center;
   min-height: 100vh;
+  font-size: var(--text-size-normal);
 }
 
 #root {
@@ -36,20 +38,23 @@ body {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header styles */
 header {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: var(--text-size-title);
   margin-bottom: 1rem;
   color: var(--text-color);
-  font-weight: 400;
+  font-weight: 600;
 }
 
 /* Token input styles */
@@ -70,11 +75,12 @@ h1 {
   font-family: monospace;
   background-color: var(--input-background);
   color: var(--text-color);
+  font-size: var(--text-size-normal);
 }
 
 .token-input small {
   color: #666666;
-  font-size: 0.875rem;
+  font-size: var(--text-size-small);
   width: 100%;
   text-align: center;
 }
@@ -85,13 +91,26 @@ h1 {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
+  flex: 1;
 }
 
 .viewer-left,
 .viewer-right {
   background-color: white;
   border: 1px solid var(--border-color);
-  padding: 1.5rem;
+  padding: 1.25rem;
+  height: fit-content;
+  position: sticky;
+  top: 1rem;
+}
+
+.viewer-left h2,
+.viewer-right h2 {
+  font-size: var(--text-size-normal);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .repo-form {
@@ -110,6 +129,7 @@ h1 {
   font-family: monospace;
   background-color: var(--input-background);
   color: var(--text-color);
+  font-size: var(--text-size-normal);
 }
 
 /* Button styles */
@@ -119,7 +139,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--text-size-small);
   transition: background-color 0.2s;
 }
 
@@ -143,9 +163,10 @@ button:hover {
 }
 
 .api-section h3 {
-  font-size: 1rem;
+  font-size: var(--text-size-normal);
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 600;
+  color: #666666;
 }
 
 .code-block {
@@ -153,9 +174,10 @@ button:hover {
   padding: 1rem;
   margin: 0.5rem 0;
   font-family: monospace;
-  font-size: 0.875rem;
+  font-size: var(--text-size-small);
   overflow-x: auto;
   border: 1px solid var(--border-color);
+  line-height: 1.4;
 }
 
 /* Breadcrumb styles */
@@ -167,12 +189,14 @@ button:hover {
   padding: 0.5rem;
   background-color: var(--input-background);
   flex-wrap: wrap;
+  font-size: var(--text-size-small);
 }
 
 .breadcrumb-button {
   background: none;
   color: var(--text-color);
   padding: 0.25rem 0.5rem;
+  font-weight: 500;
 }
 
 .breadcrumb-button:hover {
@@ -181,7 +205,7 @@ button:hover {
 
 .breadcrumb-separator {
   color: #666666;
-  font-size: 0.75rem;
+  font-size: var(--text-size-small);
 }
 
 /* Contents styles */
@@ -196,6 +220,7 @@ button:hover {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
+  font-size: var(--text-size-small);
 }
 
 .content-item:hover {
@@ -205,11 +230,12 @@ button:hover {
 .item-name {
   flex: 1;
   font-family: monospace;
+  font-weight: 500;
 }
 
 .item-size {
   color: #666666;
-  font-size: 0.875rem;
+  font-size: var(--text-size-small);
   font-family: monospace;
 }
 
@@ -228,13 +254,18 @@ button:hover {
   border-bottom: 1px solid var(--border-color);
 }
 
+.file-header h3 {
+  font-size: var(--text-size-normal);
+  font-weight: 600;
+}
+
 .file-content {
   padding: 1rem;
   overflow-x: auto;
   background-color: white;
   font-family: monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: var(--text-size-small);
+  line-height: 1.4;
 }
 
 /* Token setup guide styles */
@@ -267,6 +298,7 @@ button:hover {
   border: 1px solid var(--error-color);
   text-align: center;
   grid-column: 1 / -1;
+  font-size: var(--text-size-small);
 }
 
 .loading {
@@ -274,6 +306,7 @@ button:hover {
   padding: 2rem;
   color: #666666;
   grid-column: 1 / -1;
+  font-size: var(--text-size-small);
 }
 
 /* Footer styles */
@@ -281,7 +314,7 @@ footer {
   margin-top: 2rem;
   text-align: center;
   color: #666666;
-  font-size: 0.875rem;
+  font-size: var(--text-size-small);
 }
 
 footer a {
@@ -303,6 +336,7 @@ footer a:hover {
   .viewer-left,
   .viewer-right {
     grid-column: 1 / -1;
+    position: static;
   }
 }
 
@@ -323,4 +357,13 @@ footer a:hover {
   .breadcrumb {
     justify-content: center;
   }
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+a:hover {
+  opacity: 0.8;
 }
