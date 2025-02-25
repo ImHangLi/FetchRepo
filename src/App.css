@@ -1,0 +1,326 @@
+/* Base styles */
+:root {
+  --primary-color: #000000;
+  --primary-hover: #333333;
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #dddddd;
+  --error-color: #ff0000;
+  --success-color: #008000;
+  --input-background: #f8f8f8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header styles */
+header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-weight: 400;
+}
+
+/* Token input styles */
+.token-input {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.token-input input {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 400px;
+  font-family: monospace;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.token-input small {
+  color: #666666;
+  font-size: 0.875rem;
+  width: 100%;
+  text-align: center;
+}
+
+/* Repository viewer styles */
+.repo-viewer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.viewer-left,
+.viewer-right {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.repo-form {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.repo-form input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  font-family: monospace;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+/* Button styles */
+button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* API Documentation styles */
+.api-docs {
+  margin-bottom: 1rem;
+}
+
+.api-docs h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.api-section {
+  margin-bottom: 2rem;
+}
+
+.api-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.code-block {
+  background-color: var(--input-background);
+  padding: 1rem;
+  margin: 0.5rem 0;
+  font-family: monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+}
+
+/* Breadcrumb styles */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--input-background);
+  flex-wrap: wrap;
+}
+
+.breadcrumb-button {
+  background: none;
+  color: var(--text-color);
+  padding: 0.25rem 0.5rem;
+}
+
+.breadcrumb-button:hover {
+  background-color: #eeeeee;
+}
+
+.breadcrumb-separator {
+  color: #666666;
+  font-size: 0.75rem;
+}
+
+/* Contents styles */
+.contents {
+  border: 1px solid var(--border-color);
+}
+
+.content-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.content-item:hover {
+  background-color: var(--input-background);
+}
+
+.item-name {
+  flex: 1;
+  font-family: monospace;
+}
+
+.item-size {
+  color: #666666;
+  font-size: 0.875rem;
+  font-family: monospace;
+}
+
+/* File viewer styles */
+.file-viewer {
+  margin-top: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.file-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--input-background);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.file-content {
+  padding: 1rem;
+  overflow-x: auto;
+  background-color: white;
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Token setup guide styles */
+.token-guide {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  grid-column: 1 / -1;
+}
+
+.token-guide h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.token-guide ol {
+  padding-left: 1.5rem;
+}
+
+.token-guide li {
+  margin-bottom: 0.5rem;
+}
+
+/* Utility styles */
+.error {
+  color: var(--error-color);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--error-color);
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666666;
+  grid-column: 1 / -1;
+}
+
+/* Footer styles */
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: #666666;
+  font-size: 0.875rem;
+}
+
+footer a {
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text-color);
+}
+
+footer a:hover {
+  border-bottom-width: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .repo-viewer {
+    grid-template-columns: 1fr;
+  }
+
+  .viewer-left,
+  .viewer-right {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .repo-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .token-input {
+    flex-direction: column;
+  }
+
+  .breadcrumb {
+    justify-content: center;
+  }
+}
